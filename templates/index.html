@@ -1,147 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Django To Do List App</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  margin: 0;
-  min-width: 250px;
-}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo-List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <style>
+        .align{
+            text-align: center;
+            margin: 1rem;
+        }
+        .margin {
+            margin: 2rem;
+        }
+        .margin-card {
+          margin: 1rem;
+        }
+        .mr {
+            margin-right: 1rem;
+        }
+        .close {
+          position: absolute;
+          right: 0;
+          top: 0;
+          padding: 12px 16px 12px 16px;
+        }
 
-/* Include the padding and border in an element's total width and height */
-* {
-  box-sizing: border-box;
-}
-
-/* Remove margins and padding from the list */
-ul {
-  margin: 0;
-  padding: 0;
-}
-
-/* Style the list items */
-ul li {
-  cursor: pointer;
-  position: relative;
-  padding: 12px 8px 12px 40px;
-  list-style-type: none;
-  background: #eee;
-  font-size: 18px;
-  transition: 0.2s;
-  
-  /* make the list items unselectable */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* Set all odd list items to a different color (zebra-stripes) */
-ul li:nth-child(odd) {
-  background: #f9f9f9;
-}
-
-/* Darker background-color on hover */
-ul li:hover {
-  background: #ddd;
-}
-
-/* When clicked on, add a background color and strike out text */
-ul li.checked {
-  background: #888;
-  color: #fff;
-  text-decoration: line-through;
-}
-
-/* Add a "checked" mark when clicked on */
-ul li.checked::before {
-  content: '';
-  position: absolute;
-  border-color: #fff;
-  border-style: solid;
-  border-width: 0 2px 2px 0;
-  top: 10px;
-  left: 16px;
-  transform: rotate(45deg);
-  height: 15px;
-  width: 7px;
-}
-
-/* Style the close button */
-.close {
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 12px 16px 12px 16px;
-}
-
-.close:hover {
-  background-color: #f44336;
-  color: white;
-}
-
-/* Style the header */
-.header {
-  background-color: #329ba8;
-  padding: 30px 40px;
-  color: white;
-  text-align: center;
-}
-
-/* Clear floats after the header */
-.header:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Style the input */
-input {
-  margin: 0;
-  border: none;
-  border-radius: 0;
-  width: 75%;
-  padding: 10px;
-  float: left;
-  font-size: 16px;
-}
-
-/* Style the "Add" button */
-.addBtn {
-  padding: 10px;
-  width: 25%;
-  background: #d9d9d9;
-  color: #555;
-  float: left;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-  border-radius: 0;
-}
-
-.addBtn:hover {
-  background-color: #bbb;
-}
-</style>
+    </style>
 </head>
 <body>
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand align">
+          <a class="navbar-item title" href="#">
+            TODO App With DJANGO
+          </a>  
+        </div>
+    </nav>
+    <main class="container">
 
-<div id="myDIV" class="header">
-  <h2 style="margin:5px">Django To Do List App</h2>
-  <form action="" method="POST">
-    {% csrf_token %}
-    <input type="text" name="title" id="myInput" placeholder="Title...">
-    <button type="submit" class="addBtn">Add</button>
-  </form>
-</div>
+        <form action="" method="POST"> {% csrf_token %}
+            <div class="field margin is-grouped">
+                <h1 class="label is-large mr">Task: </h1>
+                <div class="control is-expanded">              
+                  <input class="input is-primary is-medium" type="text" placeholder="Your TODO" name="title" id="myInput">
+                </div>
+                <p class="control">
+                  <input class="button is-success is-medium addBtn" type="submit" value="Add TODO">
+                  </input>
+                </p>
+            </div>
+        </form>
 
-<ul id="myUL">
-  {% for todo in todos reversed %}
-  <li>{{todo.title | title}} <span class="close"><a style="text-decoration: none; color: black;" href="delete/{{todo.id}}">Delete</a></span></li>
-  {% endfor %}
-</ul>
+        {% for todo in todos reversed %}
+        <div class="card margin-card " id="myUL">
+            <div class="card-content">
+               
+              <p class="title ">
+                {{todo.title | title}}
+                <span class="close"><a href="delete/{{todo.id}}"><button class="delete is-large"></button>
+                </a></span>
+              </p>
+            
+            </div>
+          </div>
+          {% endfor %}
+    </main>
 
 </body>
 </html>
